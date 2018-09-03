@@ -1,77 +1,56 @@
 import React, { Component } from 'react'
 
-import api from './Api'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+
+import Home from './Home'
+import About from './About'
+import NewSeries from './NewSeries'
+import Series from './Series'
+import EditSeries from './EditSeries'
 
 class App extends Component {
-
-  constructor(props){
-    super(props);
-
-    this.state = {
-      genres :[],
-      isLoading: false
-    }
-  }
-
-  componentDidMount(){
-    this.setState({isLoading:true});
-    api.loadGenres().then((res) => {
-        this.setState({
-          isLoading:false,
-          genres:res.data
-        })
-    })
-  }
-
-  renderGenreLink(genre){
-    return(
-      <span>&nbsp;<a href="">{genre}</a>&nbsp;</span>
-    )
-  }
   render() {
     return (
-      <div>
-        <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-          <div className="container">
-            <div className="navbar-header page-scroll">
-              <a className="navbar-brand page-scroll" href="#page-top">
-                  <img src="images/logo.png" height="30" />
-              </a>
-            </div>
-      
-            <div className="collapse navbar-collapse navbar-ex1-collapse">
-              <ul className="nav navbar-nav">
-                <li>
-                  <a href="">Menu item {this.state.count}</a>
-                </li>
-             </ul>
-            </div>
-    
-           </div>
-        </nav>
-  
-        <section id="intro" className="intro-section">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <h1><img src="images/logo.png" /></h1>
-                <p>Nunca mais esqueça uma série que você assistiu ou que alguém lhe indicou.</p>
+      <Router>
+        <div>
+          <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div className="container">
+              <div className="navbar-header page-scroll">
+                <a className="navbar-brand page-scroll" href="#page-top">
+                    <img src="images/logo.png" height="30" />
+                </a>
               </div>
+        
+              <div className="collapse navbar-collapse navbar-ex1-collapse">
+                <ul className="nav navbar-nav">
+                  <li>
+                    <Link to="/"><i className="glyphicon glyphicon-home"></i> Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/news"><i className="glyphicon glyphicon-film"></i> Nova Série</Link>
+                  </li>
+                  <li>
+                    <Link to="/about"><i className="glyphicon glyphicon-question-sign"></i> Sobre</Link>
+                  </li>  
+                </ul>
+              </div>
+      
             </div>
-          </div>
-        </section>
-
-        <section>
-          {
-            this.state.isLoading && <span> Aguarde Carregando</span>
-          }
-          {
-            !this.state.isLoading && <div> Ver séries do gênero : {this.state.genres.map(this.renderGenreLink)}</div>
-          }
-        </section>
-      </div>
+          </nav>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/about' component={About} />          
+          <Route path='/series-edit/:id' component={EditSeries} />
+          <Route  path='/series/:genre' component={Series} />  
+          <Route exact path='/news' component={NewSeries} />      
+        </div>
+      </Router>
     )
   }
 }
 
 export default App
+
