@@ -125,7 +125,7 @@ class EditSeries extends Component {
                     </div>
                 </section>
             </div>
-            )
+        )
     }
 }
 
