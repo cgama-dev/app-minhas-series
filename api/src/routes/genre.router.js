@@ -7,7 +7,7 @@ const { query, getById, create, update, destroy } = require('./../controllers/ge
 router.get('/', query)
 router.get('/:id', getById)
 router.post('/', create)
-router.put('/', update)
+router.put('/:id', update)
 router.delete('/:id', destroy)
 
 module.exports = router

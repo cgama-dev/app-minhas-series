@@ -6,7 +6,7 @@ const SeriesController = () => {
         query: async (req, res) => {
             try {
 
-                const series = await SeriesModel.find({})
+                const series = await SeriesModel.find({}).populate('genre', "name")
 
                 res.status(200).send({ message: 'Series encontradas com sucesso', data: series })
 
@@ -20,7 +20,7 @@ const SeriesController = () => {
             try {
                 const id = req.params.id
 
-                const serie = await SeriesModel.findById(id)
+                const serie = await SeriesModel.findById(id).populate('genre', "name")
 
                 res.status(200).send({ message: 'Serie encontrada com sucesso', data: serie })
 
@@ -50,7 +50,9 @@ const SeriesController = () => {
         update: async (req, res) => {
             try {
 
-                const serie = SeriesModel.findByIdAndUpdate(id, req.body, { new: true })
+                const id = req.params.id
+
+                const serie = await SeriesModel.findByIdAndUpdate(id, req.body, { new: true })
 
                 res.status(200).send({ message: 'Serie atualizada com sucesso', data: serie })
 
@@ -64,9 +66,9 @@ const SeriesController = () => {
 
                 const id = req.params.id
 
-                const serie = SeriesModel.findByIdAndRemove({ _id: id })
+                const serie = await SeriesModel.findByIdAndRemove({ _id: id })
 
-                res.status(200).send({ message: 'Método Delete' })
+                res.status(200).send({ message: 'Serie deletada com sucesso' })
 
             } catch (err) {
                 res.status(400).send({ error: 'Erro ao deletar series' })

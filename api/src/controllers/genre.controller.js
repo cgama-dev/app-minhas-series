@@ -48,28 +48,31 @@ const GenreController = () => {
         update: async (req, res) => {
             try {
 
-                const genre = GenreModel.findByIdAndUpdate(id, req.body, { new: true })
+                const id = req.params.id
+
+                const genre = await GenreModel.findByIdAndUpdate(id, req.body, { new: true })
+
 
                 res.status(200).send({ message: 'Serie atualizada com sucesso', data: genre })
 
             } catch (err) {
 
-                res.status(400).send({ message: 'Erro ao buscar gêneros', error: err })
-                
+                res.status(400).send({ message: 'Erro ao atualizar gêneros', error: err })
+
             }
         },
         destroy: async (req, res) => {
             try {
-                
+
                 const id = req.params.id
-                
-                const serie = GenreModel.findByIdAndRemove({ _id: id })
-                
+
+                const serie = await GenreModel.findByIdAndRemove({ _id: id })
+
                 res.status(200).send({ message: 'Gênero deletado com sucesso', data: serie })
-                
+
             } catch (err) {
-                
-                res.status(400).send({ message: 'Erro ao buscar gêneros', error: err })
+
+                res.status(400).send({ message: 'Erro ao deletar gênero', error: err })
 
             }
         }
