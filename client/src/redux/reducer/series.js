@@ -9,6 +9,22 @@ const INITIAL_STATE = {
     isSaving: false
 }
 
+export const getSerieByGenreRequest = (state = INITIAL_STATE, actions) => {
+    return {
+        ...state,
+        isLoading: true,
+        error: false
+    }
+}
+
+export const getSerieByIdRequest = (state = INITIAL_STATE, actions) => {
+    return {
+        ...state,
+        isLoading: true,
+        error: false
+    }
+}
+
 export const getSerieRequest = (state = INITIAL_STATE, actions) => {
     return {
         ...state,
@@ -45,6 +61,8 @@ export const createSerieSuccess = (state = INITIAL_STATE, action) => {
 
 export default createReducer(INITIAL_STATE, {
     [Types.GET_SERIE_REQUEST]: getSerieRequest,
+    [Types.GET_SERIE_BY_GENRE_REQUEST]: getSerieByGenreRequest,
+    [Types.GET_SERIE_BY_ID_REQUEST]: getSerieByIdRequest,
     [Types.GET_SERIE_SUCCESS]: getSerieSuccess,
     [Types.CREATE_SERIE_REQUEST]: createSerieRequest,
     [Types.CREATE_SERIE_SUCCESS]: createSerieSuccess

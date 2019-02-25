@@ -8,11 +8,11 @@ const SeriesController = () => {
 
                 const series = await SeriesModel.find({}).populate('genre', "name")
 
-                res.status(200).send({ message: 'Series encontradas com sucesso', data: series })
+                return res.status(200).send({ message: 'Series encontradas com sucesso', data: series })
 
             } catch (err) {
 
-                res.status(400).send({ message: 'Erro ao buscar series', error: err })
+                return res.status(400).send({ message: 'Erro ao buscar series', error: err })
 
             }
         },
@@ -22,11 +22,30 @@ const SeriesController = () => {
 
                 const serie = await SeriesModel.findById(id).populate('genre', "name")
 
-                res.status(200).send({ message: 'Serie encontrada com sucesso', data: serie })
+                return res.status(200).send({ message: 'Serie encontrada com sucesso', data: serie })
 
             } catch (err) {
 
-                res.status(400).send({ message: 'Erro ao buscar series', error: err })
+                return res.status(400).send({ message: 'Erro ao buscar series', error: err })
+            }
+        },
+        getByGenre: async (req, res) => {
+            try {
+                const id = req.params.idGenre
+
+                const serie = await SeriesModel.find({
+                    genre: id
+                }).populate('genre', "name")
+
+                if (!serie) {
+                    return res.status(200).send({ message: 'Não existe nenhuma série para esse gênero', data: serie })
+                }
+
+                return res.status(200).send({ message: 'Serie encontrada com sucesso', data: serie })
+
+            } catch (err) {
+
+                return res.status(400).send({ message: 'Erro ao buscar series', error: err })
             }
         },
         create: async (req, res) => {
@@ -40,11 +59,11 @@ const SeriesController = () => {
                     comments
                 })
 
-                res.status(200).send({ message: 'Serie criada com sucesso', data: serie })
+                return res.status(200).send({ message: 'Serie criada com sucesso', data: serie })
 
             } catch (err) {
 
-                res.status(400).send({ message: 'Erro ao criar serie', error: err })
+                return res.status(400).send({ message: 'Erro ao criar serie', error: err })
             }
         },
         update: async (req, res) => {
@@ -54,11 +73,11 @@ const SeriesController = () => {
 
                 const serie = await SeriesModel.findByIdAndUpdate(id, req.body, { new: true })
 
-                res.status(200).send({ message: 'Serie atualizada com sucesso', data: serie })
+                return res.status(200).send({ message: 'Serie atualizada com sucesso', data: serie })
 
             } catch (err) {
 
-                res.status(400).send({ message: 'Erro ao atualizar serie', error: err })
+                return res.status(400).send({ message: 'Erro ao atualizar serie', error: err })
             }
         },
         destroy: async (req, res) => {
@@ -68,10 +87,10 @@ const SeriesController = () => {
 
                 const serie = await SeriesModel.findByIdAndRemove({ _id: id })
 
-                res.status(200).send({ message: 'Serie deletada com sucesso' })
+                return res.status(200).send({ message: 'Serie deletada com sucesso' })
 
             } catch (err) {
-                res.status(400).send({ error: 'Erro ao deletar series' })
+                return res.status(400).send({ error: 'Erro ao deletar series' })
             }
         }
     }

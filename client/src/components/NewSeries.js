@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import api from './Api'
 import {Redirect} from 'react-router-dom'
 
 const statuses = {
@@ -23,12 +22,12 @@ class NewSeries extends Component {
 
     componentDidMount(){
         this.setState({isLoading:true});
-        api.loadGenres().then((res) => {
-            this.setState({
-              isLoading:false,
-              genres:res.data
-            })
-        })
+        // api.loadGenres().then((res) => {
+        //     this.setState({
+        //       isLoading:false,
+        //       genres:res.data
+        //     })
+        // })
       }
     
     renderGenreLink(genre){
@@ -46,11 +45,11 @@ class NewSeries extends Component {
 
         }
 
-        api.saveSeries(NewSeries).then((res)=> {
-            this.setState({
-                redirect: '/series/'+this.refs.genre.value
-            })
-        })
+        // api.saveSeries(NewSeries).then((res)=> {
+        //     this.setState({
+        //         redirect: '/series/'+this.refs.genre.value
+        //     })
+        // })
     }
 
     render(){

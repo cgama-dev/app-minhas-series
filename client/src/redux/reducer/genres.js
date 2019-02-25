@@ -18,8 +18,6 @@ export const getGenreRequest = (state = INITIAL_STATE, actions) => {
 }
 
 export const getGenreSuccess = (state = INITIAL_STATE, action) => {
-
-    console.log(action)
     return {
         ...state,
         isLoading: false,

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import api from './Api'
 import { Link } from 'react-router-dom'
-
 import { connect } from 'react-redux'
 
-import ActionsCreators from './redux/actions/index'
+import ActionsCreators from './../redux/actions/index'
 
 class Home extends Component {
     constructor(props) {
@@ -18,14 +16,6 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.getGenres()
-
-        // this.setState({ isLoading: true });
-        // api.loadGenres().then((res) => {
-        //     this.setState({
-        //         isLoading: false,
-        //         genres: res.data
-        //     })
-        // })
     }
 
     renderGenreLink(genre) {
@@ -50,10 +40,10 @@ class Home extends Component {
 
                 <section>
                     {
-                        this.state.isLoading && <span> Aguarde Carregando</span>
+                        this.props.isLoading && <span> Aguarde Carregando</span>
                     }
                     {
-                        !this.state.isLoading && <div> Ver séries do gênero : {this.props.genres.map(this.renderGenreLink)}</div>
+                        !this.props.isLoading && <div> Ver séries do gênero : {this.props.genres.map(this.renderGenreLink)}</div>
                     }
                 </section>
             </div>
@@ -62,9 +52,9 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-    
     return {
-        genres: state.genres.data
+        genres: state.genres.data,
+        isLoading: state.genres.isLoading
     }
 }
 

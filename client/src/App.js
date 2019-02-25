@@ -6,11 +6,11 @@ import {
   Link
 } from 'react-router-dom'
 
-import Home from './Home'
-import About from './About'
-import NewSeries from './NewSeries'
-import Series from './Series'
-import EditSeries from './EditSeries'
+import Home from './components/Home'
+import About from './components/About'
+import NewSeries from './components/NewSeries'
+import Series from './components/Series'
+import EditSeries from './components/EditSeries'
 
 import store from './redux/store'
 
@@ -26,7 +26,7 @@ class App extends Component {
               <div className="container">
                 <div className="navbar-header page-scroll">
                   <a className="navbar-brand page-scroll" href="#page-top">
-                    <img src="images/logo.png" height="30" />
+                    <img src="/images/logo.png" height="30" />
                   </a>
                 </div>
 

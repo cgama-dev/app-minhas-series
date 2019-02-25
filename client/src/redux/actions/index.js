@@ -3,6 +3,9 @@ import { createActions } from 'reduxsauce'
 export const { Types, Creators } = createActions({
     
     // ActionsCreators Series
+    getSerieByIdRequest: ['id'],
+    getSerieByGenreRequest: ['genre'],
+
     getSerieRequest: null,
     getSerieSuccess: ['series'],
     getSerieFailure: ['error'],
