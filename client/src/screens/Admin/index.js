@@ -1,13 +1,23 @@
 import React from 'react'
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import ActionCretors from './../../redux/actions'
 
 const Admin = (props) => {
-    console.log(props)
+    if (!props.auth.isAuth) {
+        return <Redirect to='/login' />
+    }
+
+    if (props.auth.isAuth && props.auth.user.role !== 'admin') {
+        return <Redirect to='/user' />
+    }
+
     return (
         <div>
             <div>
                 <Link to='/admin'>Home</Link>
                 <Link to='/admin/users'>Users</Link>
+                <Link to='/login' onClick={() => props.signup()}>Logout</Link>
             </div>
             <div>
                 <Switch>
@@ -19,4 +29,17 @@ const Admin = (props) => {
     )
 }
 
-export default Admin
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signup: () => dispatch(ActionCretors.destroyAuthRequest())
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Admin)
