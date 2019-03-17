@@ -52,6 +52,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state)
     return {
         genres: state.genres.data,
         isLoading: state.genres.isLoading

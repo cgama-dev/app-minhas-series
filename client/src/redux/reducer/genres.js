@@ -13,6 +13,8 @@ export const getGenreRequest = (state = INITIAL_STATE, actions) => {
     return {
         ...state,
         isLoading: true,
+        isSaving: false,
+        saved: false,
         error: false
     }
 }

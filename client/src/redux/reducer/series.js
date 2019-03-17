@@ -21,6 +21,7 @@ export const getSerieByIdRequest = (state = INITIAL_STATE, actions) => {
     return {
         ...state,
         isLoading: true,
+        saved: false,
         error: false
     }
 }
@@ -55,7 +56,34 @@ export const createSerieSuccess = (state = INITIAL_STATE, action) => {
         ...state,
         isSaving: false,
         saved: true,
+        error: false,
+        data: [action.serie]
+    }
+}
+
+export const updateSerieRequest = (state = INITIAL_STATE, action) => {
+    return {
+        ...state,
+        isSaving: true,
+        saved: false,
         error: false
+    }
+}
+export const updateSerieSuccess = (state = INITIAL_STATE, action) => {
+    return {
+        ...state,
+        isSaving: false,
+        saved: true,
+        error: false,
+        data: action.serie
+    }
+}
+export const updateSerieFailure = (state = INITIAL_STATE, action) => {
+    return {
+        ...state,
+        isSaving: false,
+        saved: false,
+        error: action.error
     }
 }
 
@@ -65,5 +93,7 @@ export default createReducer(INITIAL_STATE, {
     [Types.GET_SERIE_BY_ID_REQUEST]: getSerieByIdRequest,
     [Types.GET_SERIE_SUCCESS]: getSerieSuccess,
     [Types.CREATE_SERIE_REQUEST]: createSerieRequest,
-    [Types.CREATE_SERIE_SUCCESS]: createSerieSuccess
+    [Types.CREATE_SERIE_SUCCESS]: createSerieSuccess,
+    [Types.UPDATE_SERIE_REQUEST]: updateSerieRequest,
+    [Types.UPDATE_SERIE_SUCCESS]: createSerieSuccess
 })

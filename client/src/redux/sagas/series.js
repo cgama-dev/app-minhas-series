@@ -5,6 +5,13 @@ import { put } from 'redux-saga/effects'
 
 import ActionsCreators from './../actions/index'
 
+export function* saveSerie(action) {
+
+    const serie = yield api.post('series', action.serie)
+
+    yield put(ActionsCreators.createSerieSuccess(serie.data.data))
+}
+
 export function* getSeriesByGenre(action) {
 
     const genreId = action.genre
@@ -18,7 +25,17 @@ export function* getSeriesById(action) {
 
     const serieId = action.id
 
-    const series = yield api.get('series/' + serieId)
+    const serie = yield api.get('series/' + serieId)
 
-    yield put(ActionsCreators.getSerieSuccess(series.data.data))
+    yield put(ActionsCreators.getSerieSuccess([serie.data.data]))
+}
+
+export function* updateSerie(action) {
+
+    const serie = yield api.put('series/' + action.id, action.serie)
+
+    const newSerie = { ...serie.data.data, genre: { _id: serie.data.data.genre } }
+
+    yield put(ActionsCreators.updateSerieSuccess(newSerie))
+
 }

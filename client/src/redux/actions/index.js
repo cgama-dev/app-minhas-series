@@ -14,8 +14,8 @@ export const { Types, Creators } = createActions({
     createSerieSuccess: ['serie'],
     createSerieFailure: ['error'],
     
-    updateSerieRequest: ['id'],
-    updateSerieSuccess: ['id'],
+    updateSerieRequest: ['id', 'serie'],
+    updateSerieSuccess: ['serie'],
     updateSerieFailure: ['error'],
     
     deleteSerieRequest: ['id'],

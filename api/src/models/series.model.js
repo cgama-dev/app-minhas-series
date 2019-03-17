@@ -7,8 +7,8 @@ const SerieSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Assistido', 'Assistindo', 'Assistir'],
-        default: 'Assistir'
+        enum: ['watched', 'watching', 'towatch'],
+        default: 'towatch'
     },
     genre: {
         type: mongoose.Schema.Types.ObjectId,

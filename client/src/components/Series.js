@@ -60,11 +60,11 @@ class Series extends Component {
                             <div className="col-lg-12">
                                 <section> <h3> Séries </h3></section>
                                 {this.props.isLoading &&
-                                    <p> Carregando, aguarde ...</p>
+                                    <div className="alert alert-info">  Carregando, aguarde ... </div> 
                                 }
                                 {
                                     !this.props.isLoading && this.props.series.length === 0 &&
-                                    <div className="alert alert-info"> Nenhuma Série Cadastrada </div>
+                                    <div className="alert alert-danger"> Nenhuma Série Cadastrada </div>
                                 }
                                 <div id="series" className="row list-group">
                                     {!this.props.isLoading &&
