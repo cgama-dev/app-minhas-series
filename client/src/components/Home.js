@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import { Divider, Image, Label, Item, List, Container, Segment, Icon, Header } from 'semantic-ui-react'
 import ActionsCreators from './../redux/actions/index'
 
 class Home extends Component {
@@ -20,7 +20,18 @@ class Home extends Component {
 
     renderGenreLink(genre) {
         return (
-            <span key={genre._id}> &nbsp;<Link to={`/series/${genre._id}`}>{genre.name}</Link>&nbsp;</span>
+            <List.Item key={genre._id}>
+                <Item.Group >
+                    <Item>
+                    </Item>
+                    <List.Content>
+                        <Item.Image src={`images/${genre.name}.jpg`}size={'medium   '} />
+                        <Header as='a' textAlign='center'>
+                            <Link to={`/series/${genre._id}`}>{genre.name}</Link>
+                        </Header>
+                    </List.Content>
+                </Item.Group>
+            </List.Item>
         )
     }
 
@@ -43,10 +54,24 @@ class Home extends Component {
                         this.props.isLoading && <span> Aguarde Carregando</span>
                     }
                     {
-                        !this.props.isLoading && <div> Ver séries do gênero : {this.props.genres.map(this.renderGenreLink)}</div>
+                        !this.props.isLoading &&
+
+
+
+                        <Container>
+                            <Header as='h2'>
+                                <Icon name='film' />
+                                <Header.Content>Genêros: </Header.Content>
+                            </Header>
+                            <List horizontal size={'massive'} >
+                                {this.props.genres.map(this.renderGenreLink)}
+                            </List>
+                        </Container>
+
+
                     }
                 </section>
-            </div>
+            </div >
         )
     }
 }

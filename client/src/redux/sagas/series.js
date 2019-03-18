@@ -7,6 +7,8 @@ import ActionsCreators from './../actions/index'
 
 export function* saveSerie(action) {
 
+    console.log(action.serie)
+
     const serie = yield api.post('series', action.serie)
 
     yield put(ActionsCreators.createSerieSuccess(serie.data.data))
@@ -37,5 +39,13 @@ export function* updateSerie(action) {
     const newSerie = { ...serie.data.data, genre: { _id: serie.data.data.genre } }
 
     yield put(ActionsCreators.updateSerieSuccess(newSerie))
+
+}
+
+export function* deleteSerie(action) {
+
+    const serie = yield api.delete('series/' + action.id)
+
+    yield put(ActionsCreators.deleteSerieSuccess(action.id))
 
 }

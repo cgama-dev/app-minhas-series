@@ -7,6 +7,7 @@ class NewSeries extends Component {
         super(props)
 
         this.state = {
+            photo: '',
             name: '',
             status: '',
             genre: '',
@@ -33,13 +34,29 @@ class NewSeries extends Component {
     }
 
     handleSaveSeries = () => {
-        const { name, status, genre, comments } = this.state
+        const { photo, name, status, genre, comments } = this.state
         this.props.saveSeries({
+            photo,
             name,
             status,
             genre,
             comments
         })
+    }
+
+    onSelectFile = e => {
+        if (e.target.files && e.target.files.length > 0) {
+            const reader = new FileReader()
+            reader.addEventListener(
+                'load',
+                () =>
+                    this.setState({
+                        photo: reader.result,
+                    }),
+                false
+            )
+            reader.readAsDataURL(e.target.files[0])
+        }
     }
 
     render() {
@@ -63,9 +80,18 @@ class NewSeries extends Component {
                                         <div className="col-md-6 col-sm-6 col-xs-12">
                                             <form method="post">
                                                 <div className="form-group ">
+                                                    <label className="control-label">Foto</label>
+
+                                                    <input type="file" onChange={this.onSelectFile} />
+                                                    <br />
+                                                    {this.state.photo &&
+                                                        <img src={this.state.photo} alt='photo' />
+                                                    }
+                                                </div>
+                                                <div className="form-group ">
                                                     <label className="control-label" >
                                                         Nome
-                                        </label>
+                                                    </label>
                                                     <input className="form-control" id="name" type="text" value={this.state.name} onChange={this.handleChange('name')} />
                                                 </div>
                                                 <div className="form-group ">

@@ -87,6 +87,39 @@ export const updateSerieFailure = (state = INITIAL_STATE, action) => {
     }
 }
 
+
+export const deleteSerieRequest = (state = INITIAL_STATE, action) => {
+    return {
+        ...state,
+        isSaving: false,
+        saved: false,
+        error: false
+    }
+}
+
+export const deleteSerieSuccess = (state = INITIAL_STATE, action) => {
+
+    let series = [...state.data]
+
+    series = series.filter((item) => item._id !== action.id)
+
+    return {
+        ...state,
+        isSaving: false,
+        data: series
+    }
+}
+
+export const deleteSerieFailure = (state = INITIAL_STATE, action) => {
+    return {
+        ...state,
+        saved: false,
+        isSaving: false,
+        error: true
+    }
+}
+
+
 export default createReducer(INITIAL_STATE, {
     [Types.GET_SERIE_REQUEST]: getSerieRequest,
     [Types.GET_SERIE_BY_GENRE_REQUEST]: getSerieByGenreRequest,
@@ -95,5 +128,8 @@ export default createReducer(INITIAL_STATE, {
     [Types.CREATE_SERIE_REQUEST]: createSerieRequest,
     [Types.CREATE_SERIE_SUCCESS]: createSerieSuccess,
     [Types.UPDATE_SERIE_REQUEST]: updateSerieRequest,
-    [Types.UPDATE_SERIE_SUCCESS]: createSerieSuccess
+    [Types.UPDATE_SERIE_SUCCESS]: createSerieSuccess,
+    [Types.DELETE_SERIE_REQUEST]: deleteSerieRequest,
+    [Types.DELETE_SERIE_SUCCESS]: deleteSerieSuccess,
+    [Types.DELETE_SERIE_FAILURE]: deleteSerieFailure
 })

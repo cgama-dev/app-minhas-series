@@ -33,9 +33,9 @@ const GenreController = () => {
         create: async (req, res) => {
             try {
 
-                const { name } = req.body
+                const { name, photo } = req.body
 
-                const genre = await GenreModel.create({ name })
+                const genre = await GenreModel.create({ name, photo })
 
                 res.status(200).send({ message: 'Gênero criado com sucesso', data: genre })
 

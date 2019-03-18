@@ -14,6 +14,9 @@ const SerieSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Genre'
     },
+    photo: {
+        type: String
+    },
     comments: {
         type: String
     },

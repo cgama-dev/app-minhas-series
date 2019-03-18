@@ -23,17 +23,19 @@ class Series extends Component {
         this.props.getSeriesByGenre(this.props.match.params.genre)
     }
 
-    deleteSeries = (id) => {
-        // api.deleteSeries(id).then((resp) => {
-        //     this.loadData()
-        // })
-    }
     renderSeries = (serie) => {
-     
         return (
             <div key={serie._id} className="item  col-xs-4 col-lg-4">
                 <div className="thumbnail">
-                    <img className="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                    {
+                        serie.photo &&
+                        <img className="group list-group-image" src={serie.photo} alt="" style={{height:'220px', width:'400px'}} />
+                    }
+                    {
+                        !serie.photo &&
+                        <img className="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                    }
+
                     <div className="caption">
                         <h4 className="group inner list-group-item-heading">
                             {serie.name}</h4>
@@ -43,7 +45,7 @@ class Series extends Component {
                             </div>
                             <div className="col-xs-12 col-md-6">
                                 <Link className="btn btn-success" to={'/series-edit/' + serie._id}>Editar</Link>
-                                <button type="button" className="btn btn-danger" onClick={() => this.deleteSeries(serie._id)}>Exluir</button>
+                                <button type="button" className="btn btn-danger" onClick={() => this.props.deleteSeries(serie._id)}>Exluir</button>
                             </div>
                         </div>
                     </div>
@@ -60,7 +62,7 @@ class Series extends Component {
                             <div className="col-lg-12">
                                 <section> <h3> Séries </h3></section>
                                 {this.props.isLoading &&
-                                    <div className="alert alert-info">  Carregando, aguarde ... </div> 
+                                    <div className="alert alert-info">  Carregando, aguarde ... </div>
                                 }
                                 {
                                     !this.props.isLoading && this.props.series.length === 0 &&
@@ -89,7 +91,8 @@ const mapStateToProps = (state) => {
 
 const mapDispacthToProps = (dispatch) => {
     return {
-        getSeriesByGenre: (genre) => dispatch(ActionsCreators.getSerieByGenreRequest(genre))
+        getSeriesByGenre: (genre) => dispatch(ActionsCreators.getSerieByGenreRequest(genre)),
+        deleteSeries: (id) => dispatch(ActionsCreators.deleteSerieRequest(id))
     }
 }
 

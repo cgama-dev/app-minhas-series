@@ -50,9 +50,10 @@ const SeriesController = () => {
         },
         create: async (req, res) => {
             try {
-                const { name, status, genre, comments } = req.body
+                const { photo, name, status, genre, comments } = req.body
 
                 const serie = await SeriesModel.create({
+                    photo,
                     name,
                     status,
                     genre,

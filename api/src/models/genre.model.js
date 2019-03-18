@@ -8,7 +8,10 @@ const GenreSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    photo: {
+        type: String
+    },
 })
 
 const GenreModel = mongoose.model('Genre', GenreSchema)
