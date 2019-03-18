@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ActionsCreators from './../redux/actions'
+
+import { Image } from 'semantic-ui-react'
+
 class NewSeries extends Component {
     constructor(props) {
         super(props)
@@ -68,7 +71,7 @@ class NewSeries extends Component {
 
         return (
             <div>
-                {this.props.saved &&
+                {this.props.saved && 
                     <Redirect to={`/series/${this.props.serie.genre}`} />
                 }
                 <section id="intro" className="intro-section">
@@ -85,7 +88,7 @@ class NewSeries extends Component {
                                                     <input type="file" onChange={this.onSelectFile} />
                                                     <br />
                                                     {this.state.photo &&
-                                                        <img src={this.state.photo} alt='photo' />
+                                                        <Image src={this.state.photo} size='medium' disabled />
                                                     }
                                                 </div>
                                                 <div className="form-group ">

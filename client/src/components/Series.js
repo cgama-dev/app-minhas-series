@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import { Item, List, Container, Icon, Header, Divider } from 'semantic-ui-react'
 import ActionsCreators from './../redux/actions'
 
 const statuses = {
@@ -29,7 +29,7 @@ class Series extends Component {
                 <div className="thumbnail">
                     {
                         serie.photo &&
-                        <img className="group list-group-image" src={serie.photo} alt="" style={{height:'220px', width:'400px'}} />
+                        <img className="group list-group-image" src={serie.photo} alt="" style={{ height: '220px', width: '400px' }} />
                     }
                     {
                         !serie.photo &&
@@ -41,11 +41,18 @@ class Series extends Component {
                             {serie.name}</h4>
                         <div className="row">
                             <div className="col-xs-12 col-md-6">
-                                <p className="lead">{serie.genre.name} / {statuses[serie.status]}</p>
+                                <div className="row">
+                                    <span className="label label-info">{serie.genre.name}</span>
+                                    <span>
+                                        &nbsp;
+                                    </span>
+                                    <span className="label label-success">{statuses[serie.status]}</span>
+                                </div>
                             </div>
+
                             <div className="col-xs-12 col-md-6">
-                                <Link className="btn btn-success" to={'/series-edit/' + serie._id}>Editar</Link>
-                                <button type="button" className="btn btn-danger" onClick={() => this.props.deleteSeries(serie._id)}>Exluir</button>
+                                <Link className="btn btn-default" to={'/series-edit/' + serie._id}>Editar</Link>
+                                <button type="button" className="btn btn-default" onClick={() => this.props.deleteSeries(serie._id)}>Exluir</button>
                             </div>
                         </div>
                     </div>
@@ -60,7 +67,13 @@ class Series extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
-                                <section> <h3> Séries </h3></section>
+                                <Container>
+                                    <Header as='h2'>
+                                        <Icon name='film' />
+                                        <Header.Content>Séries: </Header.Content>
+                                    </Header>
+                                </Container>
+                                <Divider />
                                 {this.props.isLoading &&
                                     <div className="alert alert-info">  Carregando, aguarde ... </div>
                                 }

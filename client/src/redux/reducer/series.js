@@ -13,6 +13,7 @@ export const getSerieByGenreRequest = (state = INITIAL_STATE, actions) => {
     return {
         ...state,
         isLoading: true,
+        saved:false,
         error: false
     }
 }

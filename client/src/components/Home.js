@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Divider, Image, Label, Item, List, Container, Segment, Icon, Header } from 'semantic-ui-react'
+import { Item, List, Container,Icon, Header, Image } from 'semantic-ui-react'
 import ActionsCreators from './../redux/actions/index'
 
 class Home extends Component {
@@ -25,8 +25,8 @@ class Home extends Component {
                     <Item>
                     </Item>
                     <List.Content>
-                        <Item.Image src={`images/${genre.name}.jpg`}size={'medium   '} />
-                        <Header as='a' textAlign='center'>
+                        <Image src={`images/${genre.name}.jpg`} size='medium' />
+                        <Header  textAlign='center'>
                             <Link to={`/series/${genre._id}`}>{genre.name}</Link>
                         </Header>
                     </List.Content>
@@ -51,13 +51,15 @@ class Home extends Component {
 
                 <section>
                     {
-                        this.props.isLoading && <span> Aguarde Carregando</span>
+                        this.props.isLoading && 
+                        <Container>
+                            <br/>
+                            <div className="alert alert-info">  <span> Aguarde Carregando ...</span>  </div>
+                        </Container>
+                        
                     }
                     {
                         !this.props.isLoading &&
-
-
-
                         <Container>
                             <Header as='h2'>
                                 <Icon name='film' />
@@ -67,11 +69,9 @@ class Home extends Component {
                                 {this.props.genres.map(this.renderGenreLink)}
                             </List>
                         </Container>
-
-
                     }
                 </section>
-            </div >
+            </div>
         )
     }
 }
