@@ -1,8 +1,22 @@
 
 const SeriesModel = require('./../models/series.model')
 
+const UploadStorageService = require('./../services/upload-storage.service')()
+
 const SeriesController = () => {
     const controller = {
+
+        uploadPhoto: async (req, res) => {
+            try {
+
+                const url = await UploadStorageService.upload(req.file)
+                
+                res.status(200).send({ url })
+                
+            } catch (err) {
+                res.status(400).send({error: 'Ops! Ocorreu algum erro no download'})
+            }
+        },
         query: async (req, res) => {
             try {
 

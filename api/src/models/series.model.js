@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 const SerieSchema = new mongoose.Schema({
     name: {
-        type: String,
-        required: true
+        type: String
     },
     status: {
         type: String,

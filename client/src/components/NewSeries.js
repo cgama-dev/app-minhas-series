@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ActionsCreators from './../redux/actions'
+import { Image, Loader, Segment } from 'semantic-ui-react'
 
-import { Image } from 'semantic-ui-react'
+import { uploadPhotoSerie } from './../services/api'
 
 class NewSeries extends Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class NewSeries extends Component {
             status: '',
             genre: '',
             comments: '',
+            loading: null,
             redirect: false
         }
 
@@ -47,18 +49,17 @@ class NewSeries extends Component {
         })
     }
 
-    onSelectFile = e => {
+    onSelectFile = async e => {
         if (e.target.files && e.target.files.length > 0) {
-            const reader = new FileReader()
-            reader.addEventListener(
-                'load',
-                () =>
-                    this.setState({
-                        photo: reader.result,
-                    }),
-                false
-            )
-            reader.readAsDataURL(e.target.files[0])
+            e.preventDefault();
+            const file = e.target.files[0]
+
+            this.setState({ loading: true })
+
+            const url = await uploadPhotoSerie(file)
+
+            this.setState({ photo: url, loading: false })
+
         }
     }
 
@@ -71,7 +72,7 @@ class NewSeries extends Component {
 
         return (
             <div>
-                {this.props.saved && 
+                {this.props.saved &&
                     <Redirect to={`/series/${this.props.serie.genre}`} />
                 }
                 <section id="intro" className="intro-section">
@@ -83,13 +84,23 @@ class NewSeries extends Component {
                                         <div className="col-md-6 col-sm-6 col-xs-12">
                                             <form method="post">
                                                 <div className="form-group ">
-                                                    <label className="control-label">Foto</label>
+                                                    <label className="control-label">Foto
 
-                                                    <input type="file" onChange={this.onSelectFile} />
+                                                    </label>
+
+                                                    <input type="file" name='file' onChange={this.onSelectFile} />
+                                                    {
+                                                        this.state.loading &&
+                                                        <Segment>
+                                                            <Loader size='medium' active >Enviado imagem ...</Loader>
+                                                        </Segment>
+
+                                                    }
                                                     <br />
                                                     {this.state.photo &&
                                                         <Image src={this.state.photo} size='medium' disabled />
                                                     }
+
                                                 </div>
                                                 <div className="form-group ">
                                                     <label className="control-label" >
