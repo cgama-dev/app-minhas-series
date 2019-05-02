@@ -19,7 +19,7 @@ const SeriesController = () => {
         },
         query: async (req, res) => {
             try {
-
+                console.log("series")
                 const series = await SeriesModel.find({}).populate('genre', "name")
 
                 return res.status(200).send({ message: 'Series encontradas com sucesso', data: series })

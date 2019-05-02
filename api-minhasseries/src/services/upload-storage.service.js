@@ -4,9 +4,11 @@ const { Storage } = require('@google-cloud/storage');
 
 const format = require('util').format;
 
+const keyFile = require('./../config/keyFile')
+
 const storage = new Storage({
     projectId: "minhas-series-c00dd",
-    keyFile: "./../config/config.json"
+    keyFile
 });
 
 const UploadStorageService = () => {
@@ -24,7 +26,10 @@ const UploadStorageService = () => {
                     }
                 });
 
-                blobStream.on('error', err => {                    
+                console.log(blobStream)
+                
+                blobStream.on('error', err => {      
+                    console.log(err)              
                     resolve(false)
                 });
 

@@ -1,0 +1,13 @@
+version: '3'
+
+services: 
+  app:
+    image: app-minhasseries-image
+    container_name: app-minhasseries-api
+    build: .
+    volumes:
+      - .:/usr/src/
+    ports:
+      - "5007:5007" 
+    command: "yarn start"
+    

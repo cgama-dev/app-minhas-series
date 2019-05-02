@@ -7,7 +7,7 @@ const app = express()
 const seriesRouter = require('./routes/series.router')
 const genreRouter = require('./routes/genre.router')
 
-const port = process.env.PORT || 5002
+const port = process.env.PORT || 5007
 
 mongoose.connect('mongodb://dbminhasseries:dbminhasseries123@ds011495.mlab.com:11495/db-minhas-series', {
     useCreateIndex: true,

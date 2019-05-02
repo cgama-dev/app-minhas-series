@@ -5,7 +5,7 @@ const GenreController = () => {
     const controller = {
         query: async (req, res) => {
             try {
-
+                console.log("genres")
                 const genres = await GenreModel.find({})
 
                 res.status(200).send({ message: 'Gêneros encontradas com sucesso', data: genres })
